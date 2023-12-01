@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uber</title>
+    <style>
+        body {
+            background-color: #090909;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #2c2c2c;
+            padding: 1em;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center; 
+        }
+
+        #idiomas {
+            display: flex;
+            align-items: center;
+        }
+
+        #idiomas button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+            border-radius: 8px; 
+        }
+
+        #idiomas img {
+            width: 50px; 
+            height: auto;
+        }
+
+        .conteudo {
+            width: 80%;
+            padding: 1em;
+            border: 1px solid #ccc;
+            margin: 1em;
+            background-color: #2c2c2c;
+            color: #ffffff;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <h1>Uber</h1>
+        <div id="idiomas">
+            <button onclick="Escolher('en')"><img src="img/eua.png" alt="Inglês"></button>
+            <button onclick="Escolher('ptbr')"><img src="img/brasil.png" alt="Português"></button>
+            <button onclick="Escolher('es')"><img src="img/espanha.png" alt="Espanhol"></button>
+        </div>
+    </header>
+
+    <div class="conteudo" id="paragrafo1"></div>
+    <div class="conteudo" id="paragrafo2"></div>
+    <div class="conteudo" id="paragrafo3"></div>
+
+    <script>
+        function Escolher(idioma){
+            fetch(`textos_${idioma}.json`)
+                .then(resposta => resposta.json())
+                .then(texto => {
+                    document.getElementById('paragrafo1').innerHTML = texto.paragrafo1;
+                    document.getElementById('paragrafo2').innerHTML = texto.paragrafo2;
+                    document.getElementById('paragrafo3').innerHTML = texto.paragrafo3;
+                })
+                .catch(error => console.error('erro buscando textos:', error));
+        }
+    </script>
+</body>
+</html>
